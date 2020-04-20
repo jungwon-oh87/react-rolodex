@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import "./App.css";
 import { CardList } from "./components/card-list/card-list.component";
+import { InputBox } from "./components/input-box/input-box.component";
 
 class App extends Component {
   constructor() {
@@ -8,11 +9,12 @@ class App extends Component {
 
     this.state = {
       monsters: [],
-      searchField: "",
+      searchInput: "",
     };
   }
 
   componentDidMount() {
+    // fetching API
     fetch("https://jsonplaceholder.typicode.com/users")
       .then((response) => response.json())
       .then((users) => {
@@ -25,20 +27,17 @@ class App extends Component {
 
   render() {
     //destructure the state
-    const { monsters, searchField } = this.state;
+    const { monsters, searchInput } = this.state;
     const filteredMonsters = monsters.filter((m) => {
-      return m.name.toLowerCase().includes(searchField.toLowerCase());
+      return m.name.toLowerCase().includes(searchInput);
     });
 
     return (
       <div className="App">
-        <input
-          type="search"
-          placeholder="Search any"
+        <InputBox
+          placeholder="Search your kitty"
           onChange={(e) => {
-            this.setState({ searchField: e.target.value }, () => {
-              console.log(this.state);
-            });
+            this.setState({ searchInput: e.target.value });
           }}
         />
         <CardList monsters={filteredMonsters} />
