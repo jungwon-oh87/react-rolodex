@@ -11,6 +11,8 @@ class App extends Component {
       monsters: [],
       searchInput: "",
     };
+
+    this.handleInputChange = this.handleInputChange.bind(this);
   }
 
   componentDidMount() {
@@ -25,6 +27,12 @@ class App extends Component {
       });
   }
 
+  handleInputChange(e) {
+    this.setState({ searchInput: e.target.value }, () => {
+      console.log(this.state.searchInput);
+    });
+  }
+
   render() {
     //destructure the state
     const { monsters, searchInput } = this.state;
@@ -36,9 +44,7 @@ class App extends Component {
       <div className="App">
         <InputBox
           placeholder="Search your kitty"
-          onChange={(e) => {
-            this.setState({ searchInput: e.target.value });
-          }}
+          handleChange={this.handleInputChange}
         />
         <CardList monsters={filteredMonsters} />
       </div>
