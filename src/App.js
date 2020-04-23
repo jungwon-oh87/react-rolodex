@@ -42,6 +42,7 @@ class App extends Component {
 
     return (
       <div className="App">
+        <h2>Cat Rolodex</h2>
         <InputBox
           placeholder="Search your kitty"
           handleChange={this.handleInputChange}
